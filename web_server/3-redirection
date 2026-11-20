@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+# Installs nginx and configures /redirect_me as a 301 redirection
+sudo apt-get -y update
+sudo apt-get -y install nginx
+echo "Holberton School for the win!" | sudo tee /var/www/html/index.html > /dev/null
+echo "Holberton School for the win!" | sudo tee /var/www/html/index.nginx-debian.html > /dev/null
+if ! grep -q "redirect_me" /etc/nginx/sites-available/default
+then
+  sudo sed -i '/server_name _;/a\\trewrite ^/redirect_me https://www.youtube.com/watch?v=QH2-TGUlwu4 permanent;' /etc/nginx/sites-available/default
+fi
+sudo service nginx restart
