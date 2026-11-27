@@ -6,6 +6,6 @@ echo "Holberton School for the win!" | sudo tee /var/www/html/index.html > /dev/
 echo "Holberton School for the win!" | sudo tee /var/www/html/index.nginx-debian.html > /dev/null
 if ! grep -q "X-Served-By" /etc/nginx/sites-available/default
 then
-  sudo sed -i '/server_name _;/a\\tadd_header X-Served-By $hostname;' /etc/nginx/sites-available/default
+  sudo sed -i "/^[[:space:]]*server_name/a add_header X-Served-By $(hostname);" /etc/nginx/sites-available/default
 fi
 sudo service nginx restart
